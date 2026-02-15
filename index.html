@@ -8,7 +8,7 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="img/logo.png">
     
-    <!-- Tailwind CSS via CDN com fallback -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- Google Fonts -->
@@ -20,187 +20,105 @@
     <!-- Alpine.js -->
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 
-    <!-- CSS Fallback para garantir estilização básica mesmo sem Tailwind -->
     <style>
-        /* FALLBACK CSS - Garante que o site fique visível mesmo sem Tailwind */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: #2d0b4d;
-            color: white;
-            line-height: 1.5;
-            -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
         }
 
-        img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        /* Classes essenciais que podem não carregar */
         .gradient-hero {
             background: linear-gradient(135deg, #2d0b4d 0%, #4d1685 50%, #7b29cc 100%);
+        }
+
+        .stardust {
+            background-image: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
         }
 
         .glass-card {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 2.5rem;
-            padding: 1.5rem;
         }
 
-        .text-white { color: white; }
-        .bg-\[\#2d0b4d\] { background-color: #2d0b4d; }
-        .text-\[\#a2d149\] { color: #a2d149; }
-        
-        /* Layout básico */
-        .container {
-            width: 100%;
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
+        /* Efeito de Sombra no Copo e Ingredientes */
+        .drop-shadow-acai {
+            filter: drop-shadow(0 25px 35px rgba(0, 0, 0, 0.85));
         }
-        
-        .flex { display: flex; }
-        .grid { display: grid; }
-        .hidden { display: none; }
-        
-        @media (min-width: 768px) {
-            .md\:block { display: block; }
-            .md\:hidden { display: none; }
-            .md\:grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+
+        .drop-shadow-ingredients {
+            filter: drop-shadow(0 15px 20px rgba(0, 0, 0, 0.4));
+        }
+
+        /* Animações */
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+            will-change: transform, filter;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(-1deg); }
+        }
+
+        .floating-soft {
+            animation: floatingSoft 5s ease-in-out infinite;
+            will-change: transform;
+        }
+
+        @keyframes floatingSoft {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .glow-pulse {
+            animation: glow 4s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.15); }
+        }
+
+        video::-webkit-media-controls {
+            display: none !important;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 3rem;
+        }
+
+        /* Ajustes mobile */
+        @media (max-width: 767px) {
+            .glass-card {
+                padding: 1rem;
+            }
+            
+            .video-wrapper {
+                border-radius: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 2.5rem !important;
+            }
+        }
+
+        * {
+            -webkit-tap-highlight-color: transparent;
         }
     </style>
-
-    <!-- Debug Script - Monitora carregamento de recursos -->
-    <script>
-        // Debug system
-        window.YEES_DEBUG = {
-            tailwindLoaded: false,
-            aosLoaded: false,
-            alpineLoaded: false,
-            imagesLoaded: 0,
-            totalImages: 0,
-            errors: []
-        };
-
-        // Monitora erros de carregamento
-        window.addEventListener('error', function(e) {
-            const errorInfo = {
-                type: e.type,
-                target: e.target.tagName,
-                src: e.target.src || e.target.href,
-                time: new Date().toLocaleTimeString()
-            };
-            
-            YEES_DEBUG.errors.push(errorInfo);
-            console.error('🚨 Erro de carregamento:', errorInfo);
-            
-            // Mostra erro no debug panel
-            const debugPanel = document.getElementById('debug-panel-content');
-            if (debugPanel) {
-                debugPanel.innerHTML += `<div style="color: #ff6b6b; margin-top: 5px;">❌ Erro: ${e.target.tagName} - ${e.target.src?.substring(0, 50) || e.target.href?.substring(0, 50)}</div>`;
-            }
-        }, true);
-
-        // Verifica quando o Tailwind carrega
-        function checkTailwind() {
-            YEES_DEBUG.tailwindLoaded = typeof tailwind !== 'undefined';
-            if (!YEES_DEBUG.tailwindLoaded) {
-                setTimeout(checkTailwind, 100);
-            } else {
-                console.log('✅ Tailwind carregado com sucesso');
-                updateDebugPanel();
-            }
-        }
-
-        // Atualiza painel de debug
-        function updateDebugPanel() {
-            const panel = document.getElementById('debug-panel-content');
-            if (!panel) return;
-            
-            const status = YEES_DEBUG;
-            const html = `
-                <div style="margin-bottom: 5px; font-weight: bold; color: #a2d149;">📱 YEES AÇAÍ DEBUG</div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 11px;">
-                    <div>Tailwind:</div><div style="color: ${status.tailwindLoaded ? '#4ade80' : '#f87171'}">${status.tailwindLoaded ? '✅' : '❌'}</div>
-                    <div>AOS:</div><div style="color: ${typeof AOS !== 'undefined' ? '#4ade80' : '#f87171'}">${typeof AOS !== 'undefined' ? '✅' : '❌'}</div>
-                    <div>Alpine:</div><div style="color: ${typeof Alpine !== 'undefined' ? '#4ade80' : '#f87171'}">${typeof Alpine !== 'undefined' ? '✅' : '❌'}</div>
-                    <div>Imagens:</div><div>${status.imagesLoaded}/${status.totalImages || '?'}</div>
-                </div>
-                ${status.errors.length > 0 ? `
-                    <div style="margin-top: 5px; color: #f87171; font-size: 10px;">
-                        ⚠️ Erros: ${status.errors.length}
-                        ${status.errors.map(e => `<div>• ${e.target}: ${e.src?.split('/').pop() || ''}</div>`).join('')}
-                    </div>
-                ` : ''}
-                <div style="margin-top: 5px; font-size: 9px; color: #94a3b8;">Atualizado: ${new Date().toLocaleTimeString()}</div>
-            `;
-            panel.innerHTML = html;
-        }
-
-        // Conta imagens e verifica carregamento
-        document.addEventListener('DOMContentLoaded', function() {
-            YEES_DEBUG.totalImages = document.images.length;
-            
-            for (let img of document.images) {
-                if (img.complete) {
-                    YEES_DEBUG.imagesLoaded++;
-                } else {
-                    img.addEventListener('load', function() {
-                        YEES_DEBUG.imagesLoaded++;
-                        updateDebugPanel();
-                    });
-                    img.addEventListener('error', function() {
-                        updateDebugPanel();
-                    });
-                }
-            }
-            
-            checkTailwind();
-            updateDebugPanel();
-            
-            // Atualiza debug a cada 2 segundos
-            setInterval(updateDebugPanel, 2000);
-        });
-    </script>
 </head>
 <body class="text-white selection:bg-purple-400 selection:text-white antialiased overflow-x-hidden">
-
-    <!-- PAINEL DE DEBUG - VISÍVEL APENAS NO CELULAR -->
-    <div id="debug-panel" style="position: fixed; top: 60px; left: 10px; right: 10px; background: rgba(0,0,0,0.9); color: white; padding: 12px; border-radius: 12px; z-index: 99999; font-family: monospace; font-size: 12px; border: 2px solid #a2d149; box-shadow: 0 10px 25px rgba(0,0,0,0.5); backdrop-filter: blur(5px; display: block;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
-            <span style="color: #a2d149; font-weight: bold;">🔍 MODO DEBUG</span>
-            <button onclick="this.parentElement.parentElement.style.display='none'" style="background: none; border: none; color: white; font-size: 16px; cursor: pointer;">✕</button>
-        </div>
-        <div id="debug-panel-content">
-            Carregando informações de debug...
-        </div>
-        <div style="margin-top: 8px; display: flex; gap: 5px;">
-            <button onclick="window.location.reload(true)" style="background: #a2d149; border: none; color: black; padding: 5px 10px; border-radius: 5px; font-weight: bold; font-size: 11px;">⟲ FORCE RELOAD</button>
-            <button onclick="document.getElementById('debug-panel').style.display='none'" style="background: #4b5563; border: none; color: white; padding: 5px 10px; border-radius: 5px; font-size: 11px;">FECHAR</button>
-        </div>
-    </div>
 
     <!-- SEÇÃO: CABEÇALHO (NAVBAR) -->
     <nav x-data="{ mobileMenuOpen: false }" class="fixed w-full z-50 px-6 py-4 md:px-12 transition-all duration-300" :class="mobileMenuOpen ? 'bg-[#300a4d]' : 'bg-transparent'">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <a href="#" class="flex items-center group">
                 <div class="w-14 h-14 md:w-20 md:h-20 bg-transparent rounded-full flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover:scale-110 active:scale-95">
-                    <img src="img/logo.png" alt="Yees Açaí Logo" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2280%22%20height%3D%2280%22%20viewBox%3D%220%200%2080%2080%22%3E%3Ccircle%20cx%3D%2240%22%20cy%3D%2240%22%20r%3D%2240%22%20fill%3D%22%23a2d149%22%2F%3E%3Ctext%20x%3D%2220%22%20y%3D%2250%22%20font-family%3D%22Arial%22%20font-size%3D%2220%22%20fill%3D%22%232d0b4d%22%3EYEES%3C%2Ftext%3E%3C%2Fsvg%3E';">
+                    <img src="img/logo.png" alt="Yees Açaí Logo" class="w-full h-full object-contain">
                 </div>
             </a>
 
@@ -250,13 +168,13 @@
             <div data-aos="zoom-in" data-aos-duration="1200" class="relative flex justify-center items-center order-2 md:order-2 h-[350px] sm:h-[450px] md:h-[650px] lg:h-[800px]">
                 <div class="absolute w-[70%] h-[70%] bg-purple-400 blur-[80px] md:blur-[120px] rounded-full glow-pulse"></div>
                 
-                <!-- Ingredientes com Sombra Suave -->
+                <!-- Ingredientes -->
                 <div id="parallax-container" class="absolute w-[115%] sm:w-[110%] md:w-[130%] lg:w-[145%] max-w-[1100px] aspect-square z-0">
-                    <img id="parallax-ingredients" src="img/ingredientes.png" alt="Ingredientes Yees Açaí" class="w-full h-full object-contain opacity-95 will-change-transform drop-shadow-ingredients" onerror="this.onerror=null; this.src='https://via.placeholder.com/800x800/2d0b4d/a2d149?text=Ingredientes'">
+                    <img id="parallax-ingredients" src="img/ingredientes.png" alt="Ingredientes Yees Açaí" class="w-full h-full object-contain opacity-95 will-change-transform drop-shadow-ingredients">
                 </div>
                 
-                <!-- Copo com Sombra Densa e Flutuante -->
-                <img src="img/home.png" alt="Copo Yees Açaí" class="relative w-[150%] sm:w-[130%] md:w-[100%] lg:w-[115%]" onerror="this.onerror=null; this.src='https://via.placeholder.com/600x800/2d0b4d/a2d149?text=Copo+Acai'">
+                <!-- Copo -->
+                <img src="img/home.png" alt="Copo Yees Açaí" class="relative w-[150%] sm:w-[130%] md:w-[100%] lg:w-[115%] floating">
             </div>
         </div>
     </section>
@@ -265,7 +183,6 @@
     <section id="produtos" class="py-24 md:py-32 bg-[#2d0b4d]">
         <div class="max-w-7xl mx-auto px-6 md:px-12">
             <div data-aos="fade-up" class="flex items-center gap-4 mb-12 md:mb-16">
-                <!-- Ícone de Estrela (Sparkles) -->
                 <div class="bg-purple-500/20 p-3 rounded-2xl">
                     <svg class="w-6 h-6 text-purple-400" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12,15.39L8.24,17.66L9.23,13.38L5.91,10.5L10.29,10.13L12,6.09L13.71,10.13L18.09,10.5L14.77,13.38L15.76,17.66L12,15.39M22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27L18.18,21L16.54,13.97L22,9.24Z" />
@@ -277,7 +194,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
                 <div data-aos="fade-up" data-aos-delay="100" class="glass-card group rounded-[2.5rem] p-6 transition-all duration-500 hover:-translate-y-4">
                     <div class="aspect-square mb-8 overflow-hidden rounded-3xl bg-purple-900/40">
-                        <img src="img/produto1.png" alt="Copo Mix" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x400/4d1685/a2d149?text=Produto+1'">
+                        <img src="img/produto1.png" alt="Copo Mix" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                     </div>
                     <h3 class="text-2xl font-bold mb-3 text-center">Copo de Açaí</h3>
                     <p class="text-purple-200/60 italic text-center">Ouro Branco com Morango</p>
@@ -285,7 +202,7 @@
 
                 <div data-aos="fade-up" data-aos-delay="200" class="glass-card group rounded-[2.5rem] p-6 transition-all duration-500 hover:-translate-y-4">
                     <div class="aspect-square mb-8 overflow-hidden rounded-3xl bg-purple-900/40">
-                        <img src="img/produto2.png" alt="Copo Tradicional" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x400/4d1685/a2d149?text=Produto+2'">
+                        <img src="img/produto2.png" alt="Copo Tradicional" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                     </div>
                     <h3 class="text-2xl font-bold mb-3 text-center">Copo de Açaí</h3>
                     <p class="text-purple-200/60 italic text-center">Manga e Granola</p>
@@ -293,7 +210,7 @@
 
                 <div data-aos="fade-up" data-aos-delay="300" class="glass-card group rounded-[2.5rem] p-6 transition-all duration-500 hover:-translate-y-4">
                     <div class="aspect-square mb-8 overflow-hidden rounded-3xl bg-purple-900/40">
-                        <img src="img/produto3.png" alt="Premium Gold" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x400/4d1685/a2d149?text=Produto+3'">
+                        <img src="img/produto3.png" alt="Premium Gold" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                     </div>
                     <h3 class="text-2xl font-bold mb-3 text-center">Copo de Açaí</h3>
                     <p class="text-purple-200/60 italic text-center">Morango com Bis</p>
@@ -353,7 +270,6 @@
                             muted 
                             playsinline 
                             class="w-full h-auto object-cover"
-                            onerror="this.onerror=null; this.parentElement.innerHTML='<div style=\'background: #4d1685; padding: 50px; text-align: center; border-radius: 3rem;\'><p style=\'color: white;\'>🎥 Vídeo não disponível</p></div>';"
                         >
                         </video>
                     </div>
@@ -367,7 +283,7 @@
 
         <div class="max-w-7xl mx-auto px-6 md:px-12 mt-20 md:mt-24 pt-8 border-t border-white/5 text-center text-purple-300/40 text-sm">
             <div class="flex flex-col items-center gap-6">
-                <img src="img/logo.png" alt="Yees" class="w-12 h-12 opacity-30 grayscale rounded-full" onerror="this.onerror=null; this.src='https://via.placeholder.com/50/2d0b4d/a2d149?text=Y'">
+                <img src="img/logo.png" alt="Yees" class="w-12 h-12 opacity-30 grayscale rounded-full">
                 <p>© <span id="current-year"></span> Yees Açaí. Todos os direitos reservados.</p>
                 <a href="https://www.instagram.com/yees_acai/" target="_blank" class="flex items-center gap-2 px-6 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-purple-300 transition-all duration-300">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"></path></svg>
@@ -380,95 +296,40 @@
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Inicialização com fallback
-        document.addEventListener('DOMContentLoaded', function() {
-            // AOS
-            if (typeof AOS !== 'undefined') {
-                AOS.init({ 
-                    once: true,
-                    disable: window.innerWidth < 768 
-                });
-                YEES_DEBUG.aosLoaded = true;
-            } else {
-                console.warn('AOS não carregou');
-            }
-
-            // Ano atual
-            document.getElementById('current-year').textContent = new Date().getFullYear();
-
-            // Parallax
-            let targetRotation = 0;
-            let currentRotation = 0;
-            const lerpFactor = 0.05;
-            const ingredients = document.getElementById('parallax-ingredients');
-            const nav = document.querySelector('nav');
-
-            function animate() {
-                currentRotation += (targetRotation - currentRotation) * lerpFactor;
-                if (ingredients) {
-                    ingredients.style.transform = `rotate(${currentRotation}deg) translateZ(0)`;
-                }
-                requestAnimationFrame(animate);
-            }
-
-            window.addEventListener('scroll', function() {
-                const scrollValue = window.scrollY;
-                targetRotation = scrollValue / 10;
-
-                if (scrollValue > 50) {
-                    nav.classList.add('bg-[#2d0b4d]/90', 'backdrop-blur-md', 'py-3', 'shadow-xl');
-                } else {
-                    nav.classList.remove('bg-[#2d0b4d]/90', 'backdrop-blur-md', 'py-3', 'shadow-xl');
-                }
-            }, { passive: true });
-
-            animate();
-
-            // Alpine detection
-            if (typeof Alpine !== 'undefined') {
-                YEES_DEBUG.alpineLoaded = true;
-            }
-            
-            // Atualiza debug
-            if (typeof YEES_DEBUG !== 'undefined') {
-                YEES_DEBUG.tailwindLoaded = typeof tailwind !== 'undefined';
-                updateDebugPanel();
-            }
+        AOS.init({ 
+            once: true,
+            disable: window.innerWidth < 768 
         });
+
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Efeito Parallax nos ingredientes
+        let targetRotation = 0;
+        let currentRotation = 0;
+        const lerpFactor = 0.05;
+        const ingredients = document.getElementById('parallax-ingredients');
+        const nav = document.querySelector('nav');
+
+        function animate() {
+            currentRotation += (targetRotation - currentRotation) * lerpFactor;
+            if (ingredients) {
+                ingredients.style.transform = `rotate(${currentRotation}deg) translateZ(0)`;
+            }
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('scroll', function() {
+            const scrollValue = window.scrollY;
+            targetRotation = scrollValue / 10;
+
+            if (scrollValue > 50) {
+                nav.classList.add('bg-[#2d0b4d]/90', 'backdrop-blur-md', 'py-3', 'shadow-xl');
+            } else {
+                nav.classList.remove('bg-[#2d0b4d]/90', 'backdrop-blur-md', 'py-3', 'shadow-xl');
+            }
+        }, { passive: true });
+
+        animate();
     </script>
-
-    <!-- CSS adicional para mobile -->
-    <style>
-        @media (max-width: 767px) {
-            /* Ajustes específicos para mobile */
-            .glass-card {
-                padding: 1rem;
-            }
-            
-            h1 {
-                font-size: 2.5rem !important;
-            }
-            
-            .video-wrapper {
-                border-radius: 1.5rem;
-            }
-            
-            /* Garantir que o debug panel seja sempre visível no topo */
-            #debug-panel {
-                margin-top: 0;
-                max-width: calc(100% - 20px);
-            }
-        }
-
-        /* Melhorias de performance mobile */
-        * {
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        img, video {
-            max-width: 100%;
-            height: auto;
-        }
-    </style>
 </body>
 </html>
