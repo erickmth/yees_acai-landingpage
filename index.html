@@ -91,7 +91,7 @@
             border-radius: 3rem;
         }
 
-        /* Ajustes mobile - IMAGENS AMPLIADAS */
+        /* Ajustes responsivos - IMAGENS AMPLIADAS EM TODAS AS TELAS */
         @media (max-width: 767px) {
             .glass-card {
                 padding: 1rem;
@@ -146,6 +146,40 @@
             }
         }
 
+        /* Ajustes para PC - TAMBÉM AMPLIADO */
+        @media (min-width: 768px) and (max-width: 1024px) {
+            #parallax-container {
+                width: 140% !important;
+            }
+            
+            .floating {
+                width: 120% !important;
+                transform: scale(1.1) translateX(-5%);
+            }
+        }
+
+        @media (min-width: 1025px) and (max-width: 1280px) {
+            #parallax-container {
+                width: 150% !important;
+            }
+            
+            .floating {
+                width: 130% !important;
+                transform: scale(1.15) translateX(-5%);
+            }
+        }
+
+        @media (min-width: 1281px) {
+            #parallax-container {
+                width: 160% !important;
+            }
+            
+            .floating {
+                width: 140% !important;
+                transform: scale(1.2) translateX(-8%);
+            }
+        }
+
         * {
             -webkit-tap-highlight-color: transparent;
         }
@@ -181,7 +215,7 @@
         </div>
     </nav>
 
-    <!-- SEÇÃO: HERO (HOME) - COM IMAGENS AMPLIADAS PARA MOBILE -->
+    <!-- SEÇÃO: HERO (HOME) - COM IMAGENS AMPLIADAS EM TODAS AS TELAS -->
     <section class="relative min-h-screen flex items-center pt-16 md:pt-0 gradient-hero overflow-hidden">
         <div class="absolute inset-0 stardust pointer-events-none"></div>
         <div class="max-w-7xl mx-auto px-6 md:px-12 w-full grid grid-cols-1 md:grid-cols-2 items-center gap-4 md:gap-16 relative z-10 py-10 md:py-24">
@@ -204,20 +238,21 @@
                 </div>
             </div>
 
-            <!-- COMPOSIÇÃO DA IMAGEM - AMPLIADA PARA MOBILE -->
+            <!-- COMPOSIÇÃO DA IMAGEM - AMPLIADA PARA TODAS AS TELAS -->
             <div data-aos="zoom-in" data-aos-duration="1200" class="relative flex justify-center items-center order-2 md:order-2 min-h-[400px] sm:min-h-[450px] md:min-h-[650px] lg:min-h-[800px]">
                 <!-- Glow effect ampliado -->
-                <div class="absolute w-[80%] h-[80%] bg-purple-400 blur-[100px] md:blur-[120px] rounded-full glow-pulse"></div>
+                <div class="absolute w-[80%] h-[80%] md:w-[90%] md:h-[90%] bg-purple-400 blur-[100px] md:blur-[150px] rounded-full glow-pulse"></div>
                 
-                <!-- Ingredientes - Ampliado para mobile -->
-                <div id="parallax-container" class="absolute w-[180%] sm:w-[170%] md:w-[130%] lg:w-[145%] max-w-[1200px] aspect-square z-0">
+                <!-- Ingredientes - Ampliado para todas as telas -->
+                <div id="parallax-container" class="absolute w-[180%] sm:w-[170%] md:w-[140%] lg:w-[150%] xl:w-[160%] max-w-[1400px] aspect-square z-0">
                     <img id="parallax-ingredients" src="img/ingredientes.png" alt="Ingredientes Yees Açaí" 
                          class="w-full h-full object-contain opacity-95 will-change-transform drop-shadow-ingredients">
                 </div>
                 
-                <!-- Copo - Ampliado para mobile -->
+                <!-- Copo - Ampliado para todas as telas -->
                 <img src="img/home.png" alt="Copo Yees Açaí" 
-                     class="relative w-[200%] sm:w-[180%] md:w-[100%] lg:w-[115%] floating">
+                     class="relative w-[200%] sm:w-[180%] md:w-[120%] lg:w-[130%] xl:w-[140%] floating"
+                     style="transform: translateX(0) translateY(-5%);">
             </div>
         </div>
     </section>
