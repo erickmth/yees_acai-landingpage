@@ -4,22 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>Yees Açaí</title>
-    
-    <!-- Favicon -->
     <link rel="icon" type="image/png" href="img/logo.png">
-    
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
-    
-    <!-- AOS Animate on Scroll -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
-    <!-- Alpine.js -->
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -41,7 +30,6 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Efeito de Sombra no Copo e Ingredientes */
         .drop-shadow-acai {
             filter: drop-shadow(0 25px 35px rgba(0, 0, 0, 0.85));
         }
@@ -50,7 +38,6 @@
             filter: drop-shadow(0 15px 20px rgba(0, 0, 0, 0.4));
         }
 
-        /* Animações */
         .floating {
             animation: floating 6s ease-in-out infinite;
             will-change: transform, filter;
@@ -91,7 +78,6 @@
             border-radius: 3rem;
         }
 
-        /* Ajustes responsivos - IMAGENS AMPLIADAS EM TODAS AS TELAS */
         @media (max-width: 767px) {
             .glass-card {
                 padding: 1rem;
@@ -105,7 +91,6 @@
                 font-size: 2.5rem !important;
             }
 
-            /* Ajuste para telas muito pequenas */
             @media (max-width: 380px) {
                 #parallax-container {
                     width: 200% !important;
@@ -121,7 +106,6 @@
                 }
             }
             
-            /* Ajuste para telas médias */
             @media (min-width: 381px) and (max-width: 480px) {
                 #parallax-container {
                     width: 190% !important;
@@ -133,7 +117,6 @@
                 }
             }
 
-            /* Ajuste para telas maiores de celular */
             @media (min-width: 481px) and (max-width: 767px) {
                 #parallax-container {
                     width: 180% !important;
@@ -146,7 +129,6 @@
             }
         }
 
-        /* Ajustes para PC - TAMBÉM AMPLIADO */
         @media (min-width: 768px) and (max-width: 1024px) {
             #parallax-container {
                 width: 140% !important;
@@ -186,8 +168,6 @@
     </style>
 </head>
 <body class="text-white selection:bg-purple-400 selection:text-white antialiased overflow-x-hidden">
-
-    <!-- SEÇÃO: CABEÇALHO (NAVBAR) -->
     <nav x-data="{ mobileMenuOpen: false }" class="fixed w-full z-50 px-6 py-4 md:px-12 transition-all duration-300" :class="mobileMenuOpen ? 'bg-[#300a4d]' : 'bg-transparent'">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <a href="#" class="flex items-center group">
@@ -195,19 +175,16 @@
                     <img src="img/logo.png" alt="Yees Açaí Logo" class="w-full h-full object-contain">
                 </div>
             </a>
-
             <div class="hidden md:flex items-center space-x-10">
                 <a href="#" class="text-sm font-semibold hover:text-purple-300 transition-colors">Home</a>
                 <a href="#produtos" class="text-sm font-semibold hover:text-purple-300 transition-colors">Produtos</a>
                 <a href="#contato" class="text-sm font-semibold hover:text-purple-300 transition-colors">Canais</a>
             </div>
-
             <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden p-2 text-white">
                 <svg x-show="!mobileMenuOpen" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
                 <svg x-show="mobileMenuOpen" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
         </div>
-
         <div x-show="mobileMenuOpen" x-transition class="absolute top-full left-0 w-full bg-[#300a4d] p-8 md:hidden shadow-2xl border-t border-purple-800 space-y-6">
             <a href="#" @click="mobileMenuOpen = false" class="block text-xl font-bold border-b border-purple-800 pb-4">Home</a>
             <a href="#produtos" @click="mobileMenuOpen = false" class="block text-xl font-bold border-b border-purple-800 pb-4">Produtos</a>
@@ -215,12 +192,9 @@
         </div>
     </nav>
 
-    <!-- SEÇÃO: HERO (HOME) - COM IMAGENS AMPLIADAS EM TODAS AS TELAS -->
     <section class="relative min-h-screen flex items-center pt-16 md:pt-0 gradient-hero overflow-hidden">
         <div class="absolute inset-0 stardust pointer-events-none"></div>
         <div class="max-w-7xl mx-auto px-6 md:px-12 w-full grid grid-cols-1 md:grid-cols-2 items-center gap-4 md:gap-16 relative z-10 py-10 md:py-24">
-            
-            <!-- TEXTO HERO -->
             <div data-aos="fade-up" data-aos-duration="1000" class="text-center md:text-left space-y-4 md:space-y-8 order-1 md:order-1 mb-4 md:mb-0">
                 <h1 class="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold text-white leading-[1.1] tracking-tight">
                     O açaí que <br class="hidden md:block">
@@ -237,27 +211,16 @@
                     </a>
                 </div>
             </div>
-
-            <!-- COMPOSIÇÃO DA IMAGEM - AMPLIADA PARA TODAS AS TELAS -->
             <div data-aos="zoom-in" data-aos-duration="1200" class="relative flex justify-center items-center order-2 md:order-2 min-h-[400px] sm:min-h-[450px] md:min-h-[650px] lg:min-h-[800px]">
-                <!-- Glow effect ampliado -->
                 <div class="absolute w-[80%] h-[80%] md:w-[90%] md:h-[90%] bg-purple-400 blur-[100px] md:blur-[150px] rounded-full glow-pulse"></div>
-                
-                <!-- Ingredientes - Ampliado para todas as telas -->
                 <div id="parallax-container" class="absolute w-[180%] sm:w-[170%] md:w-[140%] lg:w-[150%] xl:w-[160%] max-w-[1400px] aspect-square z-0">
-                    <img id="parallax-ingredients" src="img/ingredientes.png" alt="Ingredientes Yees Açaí" 
-                         class="w-full h-full object-contain opacity-95 will-change-transform drop-shadow-ingredients">
+                    <img id="parallax-ingredients" src="img/ingredientes.png" alt="Ingredientes Yees Açaí" class="w-full h-full object-contain opacity-95 will-change-transform drop-shadow-ingredients">
                 </div>
-                
-                <!-- Copo - Ampliado para todas as telas -->
-                <img src="img/home.png" alt="Copo Yees Açaí" 
-                     class="relative w-[200%] sm:w-[180%] md:w-[120%] lg:w-[130%] xl:w-[140%] floating"
-                     style="transform: translateX(0) translateY(-5%);">
+                <img src="img/home.png" alt="Copo Yees Açaí" class="relative w-[200%] sm:w-[180%] md:w-[120%] lg:w-[130%] xl:w-[140%] floating" style="transform: translateX(0) translateY(-5%);">
             </div>
         </div>
     </section>
 
-    <!-- SEÇÃO: PRODUTOS -->
     <section id="produtos" class="py-24 md:py-32 bg-[#2d0b4d]">
         <div class="max-w-7xl mx-auto px-6 md:px-12">
             <div data-aos="fade-up" class="flex items-center gap-4 mb-12 md:mb-16">
@@ -268,7 +231,6 @@
                 </div>
                 <h2 class="text-2xl md:text-3xl font-bold uppercase tracking-widest">Teste suas combinações!</h2>
             </div>
-            
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
                 <div data-aos="fade-up" data-aos-delay="100" class="glass-card group rounded-[2.5rem] p-6 transition-all duration-500 hover:-translate-y-4">
                     <div class="aspect-square mb-8 overflow-hidden rounded-3xl bg-purple-900/40">
@@ -277,7 +239,6 @@
                     <h3 class="text-2xl font-bold mb-3 text-center">Copo de Açaí</h3>
                     <p class="text-purple-200/60 italic text-center">Ouro Branco com Morango</p>
                 </div>
-
                 <div data-aos="fade-up" data-aos-delay="200" class="glass-card group rounded-[2.5rem] p-6 transition-all duration-500 hover:-translate-y-4">
                     <div class="aspect-square mb-8 overflow-hidden rounded-3xl bg-purple-900/40">
                         <img src="img/produto2.png" alt="Copo Tradicional" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
@@ -285,7 +246,6 @@
                     <h3 class="text-2xl font-bold mb-3 text-center">Copo de Açaí</h3>
                     <p class="text-purple-200/60 italic text-center">Manga e Granola</p>
                 </div>
-
                 <div data-aos="fade-up" data-aos-delay="300" class="glass-card group rounded-[2.5rem] p-6 transition-all duration-500 hover:-translate-y-4">
                     <div class="aspect-square mb-8 overflow-hidden rounded-3xl bg-purple-900/40">
                         <img src="img/produto3.png" alt="Premium Gold" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
@@ -297,10 +257,8 @@
         </div>
     </section>
 
-    <!-- SEÇÃO: CONTATO -->
     <footer id="contato" class="bg-[#1e0733] pt-24 md:pt-32 pb-12 border-t border-white/5 overflow-hidden">
         <div class="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
-            
             <div data-aos="fade-right" class="space-y-10 md:space-y-12">
                 <div class="space-y-6">
                     <h2 class="text-4xl md:text-6xl font-extrabold leading-tight">
@@ -311,7 +269,6 @@
                         Cada copo é preparado com dedicação total para garantir a melhor experiência em Campo Largo. Venha conhecer nosso time!
                     </p>
                 </div>
-
                 <div class="bg-white/5 border border-white/10 rounded-[2.5rem] p-8 md:p-10 text-white backdrop-blur-sm shadow-2xl">
                     <a href="https://www.google.com/maps/search/?api=1&query=Rua+Mato+Grosso+9881+Campo+Largo" target="_blank" class="flex items-start gap-6 mb-8 group hover:bg-white/5 p-2 -m-2 rounded-2xl transition-all">
                         <div class="bg-[#a2d149] p-4 rounded-2xl text-[#1a3a00] group-hover:scale-110 transition-transform">
@@ -323,7 +280,6 @@
                             <p class="text-xs text-purple-400 mt-1 uppercase tracking-tighter">Clique para abrir no Maps</p>
                         </div>
                     </a>
-                    
                     <div class="flex items-center gap-6">
                         <div class="bg-purple-600/30 p-4 rounded-2xl text-purple-300">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -335,30 +291,18 @@
                     </div>
                 </div>
             </div>
-
             <div data-aos="fade-left" class="relative">
                 <div class="absolute -inset-10 bg-purple-500/20 blur-[80px] rounded-full pointer-events-none"></div>
-                
                 <div class="relative floating-soft">
                     <div class="video-wrapper shadow-[0_50px_80px_rgba(0,0,0,0.5)] border-4 border-white/5">
-                        <video 
-                            src="img/equipe.mp4" 
-                            autoplay 
-                            loop 
-                            muted 
-                            playsinline 
-                            class="w-full h-auto object-cover"
-                        >
-                        </video>
+                        <video src="img/equipe.mp4" autoplay loop muted playsinline class="w-full h-auto object-cover"></video>
                     </div>
-                    
                     <div class="absolute -bottom-6 -right-2 md:-right-6 bg-white text-[#1e0733] p-4 md:p-6 rounded-3xl shadow-2xl block rotate-6 hover:rotate-0 transition-transform duration-300 z-20">
                         <p class="font-black text-lg md:text-xl leading-none uppercase tracking-tighter">Nossa<br><span class="text-purple-600">Equipe.</span></p>
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="max-w-7xl mx-auto px-6 md:px-12 mt-20 md:mt-24 pt-8 border-t border-white/5 text-center text-purple-300/40 text-sm">
             <div class="flex flex-col items-center gap-6">
                 <img src="img/logo.png" alt="Yees" class="w-12 h-12 opacity-30 grayscale rounded-full">
@@ -371,7 +315,6 @@
         </div>
     </footer>
 
-    <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ 
@@ -381,7 +324,6 @@
 
         document.getElementById('current-year').textContent = new Date().getFullYear();
 
-        // Efeito Parallax nos ingredientes
         let targetRotation = 0;
         let currentRotation = 0;
         const lerpFactor = 0.05;
